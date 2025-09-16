@@ -14,4 +14,12 @@ console.log(`SkyBlock Day: ${calendar.getCurrentDay()}`)
 console.log(`SkyBlock Time: ${calendar.getCurrentHour()}:${calendar.getFlatMinutes()}`)
 console.log(`Rain state ${calendar.isRaining()}`)
 console.log(`Snow state ${calendar.isSnowing()}`)
+
+testEventId = 29260;
+console.log(`Crops for ${testEventId}: ${FarmingContestUtils.getCrops(testEventId)}`) // Cactus, Cocoa Beans, Beetroot
+testEventId = 29254;
+console.log(`Crops for ${testEventId}: ${FarmingContestUtils.getCrops(testEventId)}`) // Mushroom, Pumpkin, Cocoa Beans
+
+currentEventId = FarmingContestUtils.getEventId();
+console.log(`Crops for ${currentEventId}: ${FarmingContestUtils.getCrops(currentEventId)}`) 
 ```
