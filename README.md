@@ -2,7 +2,10 @@
 A calendar library for CraftersMC SkyBlock
 
 ```javascript
-var {Calendar} = require('/path/to/calendarjs/calendar');
+var {
+    Calendar,
+    FarmingContestUtils
+} = require('/path/to/calendarjs/calendar');
 
 var calendar = new Calendar();
 // Changing the season name

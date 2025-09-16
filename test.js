@@ -1,7 +1,5 @@
 var {
     Calendar,
-    SEASON_WINTER,
-    SEASON_LENGTH,
     FarmingContestUtils
 } = require('./calendar');
 
