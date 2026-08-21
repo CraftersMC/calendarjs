@@ -32,6 +32,8 @@ function shuffleWithRandom(arr, rng) {
     return a;
 }
 
+const FARMIONAIRE_MULTIPLIER = 341249285n;
+
 function makeJavaRandomFromLongSeed(longSeed) {
   const SEED48 = Number(BigInt.asUintN(48, BigInt(longSeed))); // modulo 2^48 -> safe to Number
   return new Random(SEED48); 
@@ -76,6 +78,30 @@ class FarmingContestUtils {
   // convenience: no-arg version that uses current event
   static getCropsNow() {
     return this.getCrops(this.getEventId());
+  }
+
+  // the crop the Farmionaire Talisman boosts for the given event, one of getCrops()
+  // actual Java code is:
+  /*
+    Random random = new Random(eventId * 341249285L);
+    int index = random.nextInt(crops.size());
+    CropType type = crops.get(index);
+  */
+  static getFarmionaireCrop(eventId /* optional */) {
+    const id = (eventId === undefined) ? this.getEventId() : Number(eventId);
+    const crops = this.getCrops(id);
+    if (crops.length === 0) {
+      return null;
+    }
+    // Java wraps the multiply to 64 bits, only the low 48 bits reach the seed
+    const seed64 = BigInt(id) * FARMIONAIRE_MULTIPLIER;
+    const rng = makeJavaRandomFromLongSeed(seed64);
+    return crops[rng.nextInt(crops.length)];
+  }
+
+  // convenience: no-arg version that uses current event
+  static getFarmionaireCropNow() {
+    return this.getFarmionaireCrop(this.getEventId());
   }
 }
 
